@@ -174,7 +174,7 @@ a:hover {
    gap: 3rem;
 }
 
-.note-sidebar {
+.note-sidebar-wrapper {
    width: 250px;
    flex-shrink: 0;
    position: sticky;
@@ -227,4 +227,178 @@ a:hover {
 .notes-list {
    margin: 0.5rem 0;
    padding: 0;
+}
+
+/* Markdown Typography Improvements */
+.note-content h2, 
+.note-content h3 {
+   margin-top: 2.5rem;
+}
+
+.note-content p {
+   margin-bottom: 1.25rem;
+}
+
+.note-content ul, 
+.note-content ol {
+   color: var(--fg-secondary);
+   font-size: 1.125rem;
+   margin-bottom: 1.5rem;
+   padding-left: 1.5rem;
+}
+
+.note-content li {
+   margin-bottom: 0.5rem;
+}
+
+.note-content blockquote {
+   border-left: 4px solid var(--accent-red);
+   margin: 1.5rem 0;
+   padding: 0.75rem 1.5rem;
+   background-color: var(--bg);
+   border-radius: 0 12px 12px 0;
+   font-style: italic;
+   color: var(--fg-muted);
+}
+
+.note-content blockquote p {
+   margin: 0;
+}
+
+.note-content code:not(pre code) {
+   background-color: rgba(0, 0, 0, 0.05);
+   padding: 0.2rem 0.4rem;
+   border-radius: 6px;
+   font-size: 0.85em;
+   font-family: monospace;
+   color: var(--accent-red);
+   word-break: break-word;
+}
+
+/* Landing Page Styles */
+.landing-container {
+   max-width: 800px;
+   margin: 4rem auto;
+   padding: 0 2rem;
+}
+
+.landing-title {
+   font-size: 4.5rem;
+   line-height: 1.1;
+   margin-bottom: 1.5rem;
+   font-family: var(--font-serif);
+   color: var(--fg);
+   letter-spacing: -0.02em;
+}
+
+.landing-subtitle {
+   max-width: 650px;
+   margin-bottom: 2.5rem;
+   color: var(--fg-secondary);
+   font-size: 1.125rem;
+}
+
+@media (max-width: 600px) {
+   .landing-container {
+      margin: 2rem auto;
+      padding: 0 1rem;
+   }
+   
+   .landing-title {
+      font-size: 3rem;
+   }
+}
+
+/* Responsive Layout */
+.mobile-menu-toggle {
+   display: none;
+   width: 100%;
+   margin-bottom: 1rem;
+   background: var(--surface);
+   border: 1px solid var(--border);
+   border-radius: 8px;
+   padding: 1rem;
+   font-weight: 600;
+   text-align: left;
+   font-size: 1rem;
+   color: var(--fg);
+   cursor: pointer;
+}
+
+@media (max-width: 900px) {
+   .mobile-menu-toggle {
+      display: block;
+   }
+   
+   .note-page-container {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem;
+   }
+   
+   .note-sidebar-wrapper {
+      width: 100%;
+      position: static;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+   }
+   
+   .note-sidebar {
+      display: none;
+   }
+   
+   .note-sidebar.open {
+      display: block;
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+   }
+   
+   .note-sidebar ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+   }
+}
+
+@media (max-width: 600px) {
+   .note-page-container {
+      padding: 0.75rem 0.5rem;
+      gap: 0.75rem;
+   }
+
+   .note-sidebar-wrapper {
+      padding-bottom: 0.5rem;
+   }
+
+   .note-content {
+      padding: 1.25rem 0.75rem;
+      border-radius: 12px;
+   }
+   
+   .note-content h1 {
+      font-size: 1.75rem;
+      line-height: 1.2;
+      margin-top: 0;
+      margin-bottom: 1rem;
+   }
+   
+   .note-content p,
+   .note-content ul,
+   .note-content ol,
+   .note-content li {
+      font-size: 1rem;
+   }
+   
+   .note-number {
+      width: 45px;
+      height: 45px;
+      font-size: 1rem;
+   }
+   
+   .note-details h2 {
+      font-size: 1.25rem;
+   }
 }

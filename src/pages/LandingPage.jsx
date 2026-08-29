@@ -3,13 +3,13 @@ import { allNotes } from '../notes';
 
 function LandingPage() {
   return (
-    <div style={{ maxWidth: '800px', margin: '4rem auto', padding: '0 2rem' }}>
-      <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '1.5rem' }}>
+    <div className="landing-container">
+      <h1 className="landing-title">
         My Engineering <br />
         <span className="text-red text-italic">Notes.</span>
       </h1>
 
-      <p style={{ maxWidth: '650px', marginBottom: '2.5rem' }}>
+      <p className="landing-subtitle">
         Welcome to my Engineering Notes. This is a collection of my notes on various topics related to engineering.
         If you feel bored you can contribute to my notes.
         You can also suggest changes and improvements to my notes. just raise a Pull Request.

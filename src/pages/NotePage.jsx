@@ -14,18 +14,34 @@ export function NotePage() {
   const { topic } = useParams();
   const noteData = allNotes.find(n => n.id === topic);
   const [headings, setHeadings] = useState([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (noteData && noteData.notes) {
       const extractedHeadings = [];
       const lines = noteData.notes.split('\n');
+      let h2Count = 0;
+      let h3Count = 0;
       for (const line of lines) {
         const match = line.match(/^(#{2,3})\s+(.*)/);
         if (match) {
+          const level = match[1].length;
+          const text = match[2];
+          let numberStr = '';
+          if (level === 2) {
+            h2Count++;
+            h3Count = 0;
+            numberStr = `${h2Count}.`;
+          } else if (level === 3) {
+            h3Count++;
+            numberStr = `${h2Count}.${h3Count}.`;
+          }
+
           extractedHeadings.push({
-            level: match[1].length,
-            text: match[2],
-            id: generateId(match[2])
+            level,
+            text,
+            id: generateId(text),
+            numberStr
           });
         }
       }
@@ -39,17 +55,32 @@ export function NotePage() {
 
   return (
     <div className="note-page-container">
-      <aside className="note-sidebar">
-        <Link to="/" style={{ display: 'inline-block', marginBottom: '1rem' }}>Back to Notes</Link>
-        <h3>Contents</h3>
-        <ul>
-          {headings.map((h, i) => (
-            <li key={i} style={{ paddingLeft: h.level === 3 ? '1rem' : '0' }}>
-              <a href={`#${h.id}`}>{h.text}</a>
-            </li>
-          ))}
-        </ul>
-      </aside>
+      <div className="note-sidebar-wrapper">
+        <Link to="/" className="pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', textDecoration: 'none', color: 'inherit' }}>
+          <span>←</span> Back to Notes
+        </Link>
+
+        <button 
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? '✕ Close Contents' : '☰ Contents'}
+        </button>
+
+        <aside className={`note-sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+          <h3>Contents</h3>
+          <ul>
+            {headings.map((h, i) => (
+              <li key={i} style={{ paddingLeft: h.level === 3 ? '1rem' : '0' }}>
+                <a href={`#${h.id}`} onClick={() => setIsMobileMenuOpen(false)}>
+                  <span style={{ marginRight: '0.4rem', color: 'var(--fg-muted)', fontSize: '0.9em' }}>{h.numberStr}</span>
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
 
       <main className="note-content">
         <h1>{noteData.metadata.title}</h1>

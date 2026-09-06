@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { allNotes } from '../notes';
+import { AuthorPopover } from '../components/AuthorPopover';
 
 function LandingPage() {
   return (
@@ -25,16 +26,19 @@ function LandingPage() {
         {allNotes.map((note, index) => {
           const numberString = (index + 1).toString().padStart(2, '0');
           return (
-            <Link to={`/notes/${note.id}`} key={note.id} className="note-card">
-              <div className="note-card-content">
-                <div className="note-number">{numberString}</div>
-                <div className="note-details">
-                  <h2>{note.metadata.title}</h2>
-                  <p>{note.metadata.description}</p>
+            <div key={note.id} className="note-card">
+              <Link to={`/notes/${note.id}`} className="note-card-link">
+                <div className="note-card-content">
+                  <div className="note-number">{numberString}</div>
+                  <div className="note-details">
+                    <h2>{note.metadata.title}</h2>
+                    <p>{note.metadata.description}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="note-arrow">→</div>
-            </Link>
+                <div className="note-arrow">→</div>
+              </Link>
+              <AuthorPopover author={note.metadata.author} />
+            </div>
           );
         })}
       </div>

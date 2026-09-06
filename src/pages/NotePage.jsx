@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { allNotes } from '../notes';
+import { AuthorPopover } from '../components/AuthorPopover';
 
 function generateId(text) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -13,40 +14,41 @@ function generateId(text) {
 export function NotePage() {
   const { topic } = useParams();
   const noteData = allNotes.find(n => n.id === topic);
-  const [headings, setHeadings] = useState([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    if (noteData && noteData.notes) {
-      const extractedHeadings = [];
-      const lines = noteData.notes.split('\n');
-      let h2Count = 0;
-      let h3Count = 0;
-      for (const line of lines) {
-        const match = line.match(/^(#{2,3})\s+(.*)/);
-        if (match) {
-          const level = match[1].length;
-          const text = match[2];
-          let numberStr = '';
-          if (level === 2) {
-            h2Count++;
-            h3Count = 0;
-            numberStr = `${h2Count}.`;
-          } else if (level === 3) {
-            h3Count++;
-            numberStr = `${h2Count}.${h3Count}.`;
-          }
-
-          extractedHeadings.push({
-            level,
-            text,
-            id: generateId(text),
-            numberStr
-          });
-        }
-      }
-      setHeadings(extractedHeadings);
+  const headings = useMemo(() => {
+    if (!noteData?.notes) {
+      return [];
     }
+
+    const extractedHeadings = [];
+    const lines = noteData.notes.split('\n');
+    let h2Count = 0;
+    let h3Count = 0;
+    for (const line of lines) {
+      const match = line.match(/^(#{2,3})\s+(.*)/);
+      if (match) {
+        const level = match[1].length;
+        const text = match[2];
+        let numberStr = '';
+        if (level === 2) {
+          h2Count++;
+          h3Count = 0;
+          numberStr = `${h2Count}.`;
+        } else if (level === 3) {
+          h3Count++;
+          numberStr = `${h2Count}.${h3Count}.`;
+        }
+
+        extractedHeadings.push({
+          level,
+          text,
+          id: generateId(text),
+          numberStr
+        });
+      }
+    }
+    return extractedHeadings;
   }, [noteData]);
 
   if (!noteData) {
@@ -84,6 +86,10 @@ export function NotePage() {
 
       <main className="note-content">
         <h1>{noteData.metadata.title}</h1>
+        <div className="note-author">
+          <span>Written by</span>
+          <AuthorPopover author={noteData.metadata.author} />
+        </div>
         <Markdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -95,7 +101,7 @@ export function NotePage() {
               const id = generateId(props.children?.toString() || '');
               return <h3 id={id} {...props} />
             },
-            code({ node, inline, className, children, ...props }) {
+            code({ inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (
                 <SyntaxHighlighter

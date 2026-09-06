@@ -116,12 +116,22 @@ a:hover {
    cursor: pointer;
    transition: all 0.2s ease;
    text-decoration: none;
+   position: relative;
 }
 
 .note-card:hover {
    background-color: #eae5dc;
    transform: translateY(-2px);
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.note-card-link {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex: 1;
+   min-width: 0;
+   text-decoration: none;
 }
 
 .note-card-content {
@@ -159,6 +169,73 @@ a:hover {
 .note-arrow {
    color: var(--border);
    font-size: 1.5rem;
+}
+
+.author-popover-wrapper {
+   position: relative;
+   flex-shrink: 0;
+   margin-left: 1rem;
+}
+
+.author-button {
+   border: 0;
+   background: transparent;
+   color: var(--accent-red);
+   padding: 0.35rem 0;
+   font-size: 0.8rem;
+   font-weight: 600;
+}
+
+.author-button:hover {
+   background: transparent;
+   text-decoration: underline;
+}
+
+.author-popover {
+   position: absolute;
+   z-index: 2;
+   right: 0;
+   top: calc(100% + 0.5rem);
+   width: 190px;
+   padding: 0.85rem 1rem;
+   background: var(--surface);
+   border: 1px solid var(--border);
+   border-radius: 12px;
+   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.author-popover-header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 0.5rem;
+}
+
+.author-popover-close {
+   border: 0;
+   background: transparent;
+   padding: 0;
+   font-size: 1.1rem;
+   line-height: 1;
+}
+
+.author-popover ul {
+   list-style: none;
+   padding: 0;
+   margin: 0.65rem 0 0;
+}
+
+.author-popover p {
+   margin: 0.65rem 0 0;
+   font-size: 0.8rem;
+}
+
+.author-popover li + li {
+   margin-top: 0.35rem;
+}
+
+.author-popover a {
+   font-size: 0.85rem;
 }
 
 .note-card:hover .note-arrow {
@@ -233,6 +310,15 @@ a:hover {
 .note-content h2, 
 .note-content h3 {
    margin-top: 2.5rem;
+}
+
+.note-author {
+   display: flex;
+   align-items: center;
+   gap: 0.4rem;
+   margin: -0.5rem 0 2rem;
+   color: var(--fg-muted);
+   font-size: 0.85rem;
 }
 
 .note-content p {

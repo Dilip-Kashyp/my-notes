@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { NotebookCover } from '../components/NotebookCover';
 import { ArrowIcon } from '../components/Icons';
-import { findByPath, formatMinutes, subjects, totals } from '../lib/notebook';
+import { findByPath, subjects } from '../lib/notebook';
 import { useProgress } from '../lib/progress';
 
 function LandingPage() {
@@ -12,7 +12,7 @@ function LandingPage() {
   return (
     <div className="page landing">
       <section className="hero">
-        <p className="hand hero-kicker">field notes{author?.name ? ` by ${author.name}` : ''}</p>
+        <p className="hand hero-kicker">field notes for product engineers{author?.name ? ` · ${author.name}` : ''}</p>
         <h1 className="hero-title">
           Engineering{' '}
           <span className="scribble">
@@ -23,16 +23,9 @@ function LandingPage() {
           </span>
         </h1>
         <p className="hero-lede">
-          Long-form notes on backend engineering, system design and building with AI, written while learning and kept
-          for re-reading. Every page is plain Markdown, so if you spot a mistake or have a better explanation, open a pull request.
+          Long-form notes on backend systems, product thinking, and building with AI. The goal is simple: keep the useful patterns close at hand and easy to revisit.
         </p>
 
-        <dl className="stats">
-          <div><dt>notebooks</dt><dd>{totals.subjects}</dd></div>
-          <div><dt>chapters</dt><dd>{totals.chapters}</dd></div>
-          <div><dt>of reading</dt><dd>{formatMinutes(totals.minutes)}</dd></div>
-          <div><dt>diagrams</dt><dd>{totals.diagrams}</dd></div>
-        </dl>
       </section>
 
       {lastRead && (

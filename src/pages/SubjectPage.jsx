@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon, CheckIcon } from '../components/Icons';
-import { formatMinutes, pad } from '../lib/notebook';
 import { useProgress } from '../lib/progress';
 
 // Contents page of a multi-chapter notebook, laid out like the index at the front of a book
@@ -22,13 +21,13 @@ export function SubjectPage({ subject }) {
           <span className="mini-cover-label">{subject.title}</span>
         </div>
         <div className="subject-hero-text">
-          <p className="kicker">Notebook No. {pad(subject.number)}</p>
+          <p className="kicker">Notebook</p>
           <h1>{subject.title}</h1>
           {subject.tagline && <p className="lede">{subject.tagline}</p>}
           <ul className="meta-row">
-            <li>{chapters.length} chapters</li>
-            <li>{formatMinutes(subject.minutes)} of reading</li>
-            {subject.diagrams > 0 && <li>{subject.diagrams} diagrams</li>}
+            <li>core notes</li>
+            <li>systems thinking</li>
+            {subject.diagrams > 0 && <li>visual models</li>}
           </ul>
           <div className="subject-actions">
             <Link to={next.path} className="btn btn-primary">
@@ -36,7 +35,7 @@ export function SubjectPage({ subject }) {
             </Link>
             <div className="progress-meter">
               <span className="progress-track"><span style={{ width: `${(doneCount / chapters.length) * 100}%` }} /></span>
-              <span className="progress-text">{doneCount} of {chapters.length} done</span>
+              <span className="progress-text">{doneCount === 0 ? 'not started yet' : doneCount === chapters.length ? 'complete' : 'in progress'}</span>
             </div>
           </div>
         </div>
@@ -51,16 +50,10 @@ export function SubjectPage({ subject }) {
             return (
               <li key={chapter.path} className={`${done ? 'is-done' : ''} ${current ? 'is-current' : ''}`}>
                 <Link to={chapter.path}>
-                  <span className="ci-num">{pad(chapter.number)}</span>
                   <span className="ci-text">
                     <span className="ci-title">{chapter.title}</span>
-                    <span className="ci-sub">
-                      {chapter.sections} sections{chapter.diagrams > 0 && ` · ${chapter.diagrams} diagrams`}
-                      {current && !done && <span className="hand ci-here">← you were here</span>}
-                    </span>
+                    {current && !done && <span className="hand ci-here">you were here</span>}
                   </span>
-                  <span className="ci-leader" aria-hidden="true" />
-                  <span className="ci-time">{chapter.minutes} min</span>
                   <span className="ci-status" aria-label={done ? 'done' : 'not read yet'}>{done && <CheckIcon size={16} />}</span>
                 </Link>
               </li>

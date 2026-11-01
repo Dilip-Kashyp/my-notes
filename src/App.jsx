@@ -49,7 +49,6 @@ function App() {
         </Routes>
       </main>
       <footer className="site-footer">
-        <span className="hand">kept in Markdown, one chapter at a time</span>
         <span>Spotted a mistake? Pull requests are welcome.</span>
       </footer>
       {searchOpen && <SearchPalette onClose={() => setSearchOpen(false)} />}

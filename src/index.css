@@ -6,24 +6,24 @@
    ========================================================================== */
 
 :root {
-   --paper: #f4efe4;
-   --sheet: #fffdf8;
-   --sheet-2: #f9f5ec;
-   --ink: #1e2330;
-   --ink-2: #3f4655;
-   --ink-3: #7b8090;
-   --rule: #e2d9c8;
-   --accent: #c2462e;
+   --paper: #f5f8f6;
+   --sheet: #ffffff;
+   --sheet-2: #f2f7f6;
+   --ink: #1b2d36;
+   --ink-2: #415d68;
+   --ink-3: #6c8792;
+   --rule: #dfeeea;
+   --accent: #4d7f7b;
 
-   --margin-line: rgba(214, 92, 74, 0.45);
-   --hole-ring: rgba(30, 35, 48, 0.1);
-   --highlight: rgba(255, 208, 77, 0.5);
-   --sticky: #fff3a6;
-   --sticky-ink: #4b4012;
-   --tape: rgba(214, 197, 150, 0.6);
-   --code-bg: #1e2330;
-   --code-inline-bg: #f1ebdf;
-   --code-inline-ink: #a33a25;
+   --margin-line: rgba(77, 127, 123, 0.28);
+   --hole-ring: rgba(27, 45, 54, 0.12);
+   --highlight: rgba(149, 201, 195, 0.35);
+   --sticky: #edf4cf;
+   --sticky-ink: #243c2c;
+   --tape: rgba(126, 174, 168, 0.6);
+   --code-bg: #112933;
+   --code-inline-bg: #edf7f5;
+   --code-inline-ink: #1d5a56;
 
    --page-pattern: radial-gradient(rgba(31, 36, 48, 0.13) 1px, transparent 1.4px);
    --page-pattern-size: 22px 22px;
@@ -40,24 +40,24 @@
 }
 
 [data-theme='dark'] {
-   --paper: #0d1626;
-   --sheet: #142036;
-   --sheet-2: #18263f;
-   --ink: #e9edf5;
-   --ink-2: #bcc6d6;
-   --ink-3: #8592a8;
-   --rule: #26375a;
-   --accent: #ff8a6b;
+   --paper: #101c27;
+   --sheet: #162b39;
+   --sheet-2: #1c3445;
+   --ink: #edf6f3;
+   --ink-2: #d6e6e1;
+   --ink-3: #a5bfc2;
+   --rule: #2c4657;
+   --accent: #a5d9d1;
 
-   --margin-line: rgba(255, 130, 110, 0.32);
-   --hole-ring: rgba(0, 0, 0, 0.35);
-   --highlight: rgba(255, 190, 60, 0.26);
-   --sticky: #3a3420;
-   --sticky-ink: #f5e7ae;
-   --tape: rgba(255, 255, 255, 0.12);
-   --code-bg: #0a111e;
-   --code-inline-bg: #1d2c47;
-   --code-inline-ink: #ffb199;
+   --margin-line: rgba(165, 217, 209, 0.28);
+   --hole-ring: rgba(255, 255, 255, 0.08);
+   --highlight: rgba(165, 217, 209, 0.18);
+   --sticky: #2d4131;
+   --sticky-ink: #ebf7eb;
+   --tape: rgba(255, 255, 255, 0.1);
+   --code-bg: #0d1b24;
+   --code-inline-bg: #1f3c49;
+   --code-inline-ink: #d4f8f1;
 
    --page-pattern: linear-gradient(rgba(120, 170, 255, 0.07) 1px, transparent 1px),
       linear-gradient(90deg, rgba(120, 170, 255, 0.07) 1px, transparent 1px);
@@ -433,43 +433,6 @@ kbd {
    font-size: 1.15rem;
    line-height: 1.7;
    color: var(--ink-2);
-}
-
-.stats {
-   display: grid;
-   grid-template-columns: repeat(4, minmax(0, 1fr));
-   max-width: 720px;
-   margin: 2.5rem 0 0;
-   border: 1px solid var(--rule);
-   border-radius: 14px;
-   background: var(--sheet);
-   box-shadow: var(--shadow-sheet);
-   overflow: hidden;
-}
-
-.stats div {
-   display: flex;
-   flex-direction: column-reverse;
-   padding: 0.9rem 1.25rem 0.8rem;
-}
-
-.stats div + div {
-   border-left: 1px dashed var(--rule);
-}
-
-.stats dd {
-   margin: 0;
-   font-family: var(--font-display);
-   font-size: 2rem;
-   font-weight: 600;
-   line-height: 1.1;
-   color: var(--ink);
-}
-
-.stats dt {
-   font-family: var(--font-hand);
-   font-size: 1.2rem;
-   color: var(--ink-3);
 }
 
 .continue {

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { AuthorPopover } from '../components/AuthorPopover';
 import { ArrowIcon, CheckIcon, ListIcon } from '../components/Icons';
 import { NoteContent } from '../components/NoteContent';
-import { pad } from '../lib/notebook';
 import { markVisited, toggleDone, useProgress } from '../lib/progress';
 
 // Headings within this distance of the top bar count as "being read"
@@ -101,9 +100,6 @@ export function NotePage({ subject, chapter }) {
       <aside className={`reader-aside${tocOpen ? ' is-open' : ''}`} aria-label="Chapter contents">
         <div className="aside-head">
           <Link to={subject.path} className="aside-subject">{subject.title}</Link>
-          {subject.isSeries && (
-            <span className="aside-chapter">Chapter {chapter.number} of {subject.chapters.length}</span>
-          )}
         </div>
         {chapter.headings.length > 0 && (
           <>
@@ -128,14 +124,10 @@ export function NotePage({ subject, chapter }) {
         <header className="sheet-head">
           <p className="kicker">
             <Link to={subject.path}>{subject.title}</Link>
-            {subject.isSeries && <span> · Chapter {pad(chapter.number)}</span>}
           </p>
           <h1>{chapter.title}</h1>
           {chapter.subtitle && <p className="sheet-subtitle">{chapter.subtitle}</p>}
           <div className="sheet-meta">
-            <span>{chapter.minutes} min read</span>
-            {chapter.sections > 0 && <span>{chapter.sections} sections</span>}
-            {chapter.diagrams > 0 && <span>{chapter.diagrams} diagrams</span>}
             {chapter.author && (
               <span className="sheet-author">by <AuthorPopover author={chapter.author} /></span>
             )}

@@ -1,2 +1,2 @@
 export { LandingPage } from "./LandingPage";
-export { NotePage } from './NotePage';
+export { NotesRoute, NotFoundPage } from './NotesRoute';

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function getAuthorDetails(author) {
   if (!author) {
@@ -11,6 +11,24 @@ function getAuthorDetails(author) {
 export function AuthorPopover({ author }) {
   const [isOpen, setIsOpen] = useState(false);
   const details = getAuthorDetails(author);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+    const close = (event) => {
+      if (event.type === 'keydown' ? event.key === 'Escape' : !wrapperRef.current?.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', close);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      document.removeEventListener('keydown', close);
+    };
+  }, [isOpen]);
 
   if (!details?.name) {
     return null;
@@ -29,7 +47,7 @@ export function AuthorPopover({ author }) {
   }
 
   return (
-    <div className="author-popover-wrapper">
+    <div className="author-popover-wrapper" ref={wrapperRef}>
       <button
         type="button"
         className="author-button"

@@ -2,7 +2,7 @@ export const metadata = {
   id: 'chat-bot',
   title: 'Chat Bot Architecture',
   description: '~15 min read',
-  topic: 'Chat Bot, Architecture',
+  topic: 'Architecture',
   author: {
     name: 'Dilip Kumar',
     email: "dilipkumar1.edu@gmail.com",

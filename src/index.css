@@ -794,6 +794,22 @@ kbd {
    font-weight: 600;
 }
 
+.index-group + .index-group {
+   margin-top: 2rem;
+}
+
+.index-part {
+   margin: 0;
+   padding-bottom: 0.55rem;
+   border-bottom: 1.5px solid var(--ct);
+   font-family: var(--font-mono);
+   font-size: 0.74rem;
+   font-weight: 600;
+   letter-spacing: 0.14em;
+   text-transform: uppercase;
+   color: var(--ct);
+}
+
 .chapter-index {
    margin: 0;
    padding: 0;
@@ -1355,6 +1371,16 @@ kbd {
    color: inherit;
 }
 
+.table-wrap,
+.figure-body {
+   --scroll-bg: var(--sheet);
+   background:
+      linear-gradient(to right, var(--scroll-bg) 40%, transparent) left center / 36px 100% no-repeat local,
+      linear-gradient(to left, var(--scroll-bg) 40%, transparent) right center / 36px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(16, 40, 48, 0.2), transparent) left center / 14px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(16, 40, 48, 0.2), transparent) right center / 14px 100% no-repeat scroll;
+}
+
 .table-wrap {
    margin: 1.75rem 0;
    overflow-x: auto;
@@ -1489,6 +1515,10 @@ kbd {
    display: flex;
    justify-content: center;
    overflow-x: auto;
+}
+
+.figure-body {
+   --scroll-bg: var(--sheet-2);
 }
 
 .figure-body svg {
@@ -1990,24 +2020,90 @@ kbd {
       font-size: 1.35rem;
    }
 
-   /* One wide notebook per row so labels never get squeezed */
+   /* Phones: a swipeable shelf of full-size book covers; the next book peeks in */
    .shelf {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 1.5rem;
+      grid-auto-flow: column;
+      grid-template-columns: none;
+      grid-auto-columns: 64%;
+      gap: 1.25rem;
+      margin: 1.25rem -1rem 0;
+      padding: 0.75rem 1rem 2.25rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 1rem;
+      scrollbar-width: none;
+      background: linear-gradient(to bottom,
+            transparent calc(100% - 1.6rem),
+            color-mix(in srgb, var(--ink) 16%, var(--paper)) calc(100% - 1.6rem),
+            color-mix(in srgb, var(--ink) 16%, var(--paper)) calc(100% - 1.05rem),
+            color-mix(in srgb, var(--ink) 6%, var(--paper)) calc(100% - 1.05rem),
+            transparent 100%);
+   }
+
+   .shelf::-webkit-scrollbar {
+      display: none;
+   }
+
+   .shelf > .cover {
+      scroll-snap-align: start;
    }
 
    .cover {
-      aspect-ratio: auto;
-      min-height: 176px;
-      gap: 0.9rem;
-   }
-
-   .cover-label {
-      margin: 0;
+      padding: 1rem 2.4rem 1rem 1.9rem;
    }
 
    .cover-label h3 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
+   }
+
+   .annotation-desktop {
+      display: none;
+   }
+
+   .section-head .annotation-touch {
+      display: inline;
+   }
+
+   .subject-actions .btn {
+      width: 100%;
+      justify-content: center;
+   }
+
+   .progress-meter {
+      width: 100%;
+   }
+
+   .progress-track {
+      flex: 1;
+   }
+}
+
+.annotation-touch {
+   display: none;
+}
+
+@media (max-width: 720px) {
+   /* Diagrams keep a readable size and scroll sideways instead of shrinking to tiny text */
+   .figure {
+      padding: 1.6rem 0.5rem 1rem;
+   }
+
+   .figure-body {
+      justify-content: flex-start;
+   }
+
+   .figure-body svg {
+      min-width: min(var(--diagram-width, 100%), 620px);
+   }
+
+   .code-card > div {
+      font-size: 0.8rem !important;
+   }
+
+   .prose th,
+   .prose td {
+      padding: 0.55rem 0.7rem;
    }
 }
 

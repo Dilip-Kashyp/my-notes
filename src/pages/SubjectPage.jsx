@@ -12,6 +12,16 @@ export function SubjectPage({ subject }) {
     ?? chapters.find((chapter) => !progress.done[chapter.path])
     ?? chapters[0];
   const started = doneCount > 0 || Boolean(lastHere);
+  // Consecutive chapters that share a `part` are listed under one heading
+  const groups = chapters.reduce((list, chapter) => {
+    const last = list[list.length - 1];
+    if (last && last.part === chapter.part) {
+      last.chapters.push(chapter);
+    } else {
+      list.push({ part: chapter.part, chapters: [chapter] });
+    }
+    return list;
+  }, []);
 
   return (
     <div className="page subject-page" style={{ '--c': subject.color }}>
@@ -43,23 +53,28 @@ export function SubjectPage({ subject }) {
 
       <section className="index-sheet" aria-labelledby="contents-title">
         <h2 id="contents-title" className="index-title">Contents</h2>
-        <ol className="chapter-index">
-          {chapters.map((chapter) => {
-            const done = Boolean(progress.done[chapter.path]);
-            const current = chapter.path === progress.last;
-            return (
-              <li key={chapter.path} className={`${done ? 'is-done' : ''} ${current ? 'is-current' : ''}`}>
-                <Link to={chapter.path}>
-                  <span className="ci-text">
-                    <span className="ci-title">{chapter.title}</span>
-                    {current && !done && <span className="hand ci-here">you were here</span>}
-                  </span>
-                  <span className="ci-status" aria-label={done ? 'done' : 'not read yet'}>{done && <CheckIcon size={16} />}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ol>
+        {groups.map((group) => (
+          <div key={group.part ?? 'all'} className="index-group">
+            {group.part && <h3 className="index-part">{group.part}</h3>}
+            <ol className="chapter-index">
+              {group.chapters.map((chapter) => {
+                const done = Boolean(progress.done[chapter.path]);
+                const current = chapter.path === progress.last;
+                return (
+                  <li key={chapter.path} className={`${done ? 'is-done' : ''} ${current ? 'is-current' : ''}`}>
+                    <Link to={chapter.path}>
+                      <span className="ci-text">
+                        <span className="ci-title">{chapter.title}</span>
+                        {current && !done && <span className="hand ci-here">you were here</span>}
+                      </span>
+                      <span className="ci-status" aria-label={done ? 'done' : 'not read yet'}>{done && <CheckIcon size={16} />}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        ))}
       </section>
     </div>
   );

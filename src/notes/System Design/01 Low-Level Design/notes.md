@@ -182,7 +182,7 @@ This reduces tight coupling between classes.
 
 ---
 
-# 3. UML in LLD
+## 3. UML in LLD
 
 **UML (Unified Modeling Language)** is a standard way to visualize and
 represent the structure and behavior of a software system.
@@ -235,7 +235,7 @@ time**.
 
 ---
 
-# 4. Relationships in UML
+## 4. Relationships in UML
 
 Classes can have different types of relationships.
 
@@ -339,7 +339,7 @@ In simple terms:
 
 ---
 
-# 5. Abstraction and Encapsulation
+## 5. Abstraction and Encapsulation
 
 ## 5.1 Abstraction
 
@@ -421,7 +421,7 @@ methods.
 
 ---
 
-# 6. Inheritance
+## 6. Inheritance
 
 **Inheritance** allows a class to acquire properties and behavior from
 another class.
@@ -446,7 +446,7 @@ A `Dog` is an `Animal`.
 
 ---
 
-# 7. Types of Inheritance
+## 7. Types of Inheritance
 
 There are commonly five types of inheritance discussed in LLD/OOP:
 
@@ -537,7 +537,7 @@ used.
 
 ---
 
-# 8. Polymorphism
+## 8. Polymorphism
 
 **Polymorphism** means "many forms."
 
@@ -610,7 +610,7 @@ Child
 
 ---
 
-# 9. Quick LLD Revision
+## 9. Quick LLD Revision
 
 ```text
 LLD

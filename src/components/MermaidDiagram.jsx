@@ -22,6 +22,12 @@ function configFor(theme) {
   };
 }
 
+// Mermaid writes the diagram's natural width as an inline max-width; phones use it to avoid shrinking text
+function diagramWidth(svg) {
+  const width = /max-width:\s*([\d.]+)px/.exec(svg)?.[1];
+  return width ? { '--diagram-width': `${width}px` } : undefined;
+}
+
 export function MermaidDiagram({ chart }) {
   const id = `mermaid-${useId().replace(/[^a-zA-Z0-9-]/g, '')}`;
   const theme = useTheme();
@@ -62,7 +68,7 @@ export function MermaidDiagram({ chart }) {
       <span className="figure-tape figure-tape-left" aria-hidden="true" />
       <span className="figure-tape figure-tape-right" aria-hidden="true" />
       {svg ? (
-        <div className="figure-body" dangerouslySetInnerHTML={{ __html: svg }} />
+        <div className="figure-body" style={diagramWidth(svg)} dangerouslySetInnerHTML={{ __html: svg }} />
       ) : (
         <div className="figure-body figure-loading">sketching diagram…</div>
       )}

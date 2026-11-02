@@ -15,7 +15,7 @@ export function NotebookCover({ subject, doneCount }) {
         {subject.topics.length > 0 && <p>{subject.topics.join(' · ')}</p>}
       </div>
       <div className="cover-foot">
-        <span>{subject.topics.length > 0 ? 'curated notes' : 'reading list'}</span>
+        <span>{subject.topics.length > 0 ? '' : 'reading list'}</span>
         <span className="cover-progress" aria-label={`${doneCount} of ${total} chapters done`}>
           <span style={{ width: `${percent}%` }} />
         </span>

@@ -1,8 +1,8 @@
 export const metadata = {
   id: 'system-design',
   title: 'System Design',
-  description: '~35 min read',
-  topic: 'System Design',
+  description: 'From object design to planet-scale systems: networking, data, architecture, reliability and interview case studies',
+  topic: 'Architecture, Scalability',
   author: {
     name: 'Dilip Kumar',
     email: "dilipkumar1.edu@gmail.com",

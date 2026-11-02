@@ -4,12 +4,14 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
 import docker from 'react-syntax-highlighter/dist/esm/languages/prism/docker';
 import go from 'react-syntax-highlighter/dist/esm/languages/prism/go';
+import graphql from 'react-syntax-highlighter/dist/esm/languages/prism/graphql';
 import hcl from 'react-syntax-highlighter/dist/esm/languages/prism/hcl';
 import http from 'react-syntax-highlighter/dist/esm/languages/prism/http';
 import ini from 'react-syntax-highlighter/dist/esm/languages/prism/ini';
 import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
 import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
 import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
+import protobuf from 'react-syntax-highlighter/dist/esm/languages/prism/protobuf';
 import python from 'react-syntax-highlighter/dist/esm/languages/prism/python';
 import sql from 'react-syntax-highlighter/dist/esm/languages/prism/sql';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
@@ -21,9 +23,9 @@ import { CheckIcon, CopyIcon } from './Icons';
 const LANGUAGES = {
   bash, sh: bash, shell: bash, env: bash,
   docker, dockerfile: docker,
-  go, hcl, http, ini,
+  go, graphql, hcl, http, ini,
   javascript, js: javascript, jsx,
-  json, python, py: python, sql,
+  json, protobuf, proto: protobuf, python, py: python, sql,
   typescript, ts: typescript,
   yaml, yml: yaml,
 };

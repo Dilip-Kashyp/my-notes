@@ -101,6 +101,8 @@ function buildChapter(subject, entry, index) {
     number: index + 1,
     path,
     title: entry.metadata.title,
+    // Optional `part` in a chapter's metadata.js groups the contents page ("Part I · Infrastructure")
+    part: entry.metadata.part ?? null,
     subtitle: subtitle && subtitle !== entry.metadata.title ? subtitle : null,
     author: entry.metadata.author ?? subject.author,
     body,

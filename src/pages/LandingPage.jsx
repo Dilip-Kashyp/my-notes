@@ -48,7 +48,8 @@ function LandingPage({ onSearch }) {
       <section className="shelf-section" id="shelf" aria-labelledby="shelf-title">
         <div className="section-head">
           <h2 id="shelf-title">The shelf</h2>
-          <span className="hand annotation">pick a notebook ↓</span>
+          <span className="hand annotation annotation-desktop">pick a notebook ↓</span>
+          <span className="hand annotation annotation-touch">swipe the shelf →</span>
         </div>
         <div className="shelf">
           {subjects.map((subject) => (

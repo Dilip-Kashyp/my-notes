@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { NotebookCover } from '../components/NotebookCover';
-import { ArrowIcon } from '../components/Icons';
+import { ArrowIcon, SearchIcon } from '../components/Icons';
 import { findByPath, subjects } from '../lib/notebook';
 import { useProgress } from '../lib/progress';
 
-function LandingPage() {
+function LandingPage({ onSearch }) {
   const progress = useProgress();
   const lastRead = progress.last ? findByPath(progress.last) : null;
   const author = subjects.find((subject) => subject.author?.name)?.author;
@@ -25,6 +25,12 @@ function LandingPage() {
         <p className="hero-lede">
           Long-form notes on backend systems, product thinking, and building with AI. The goal is simple: keep the useful patterns close at hand and easy to revisit.
         </p>
+        <div className="hero-actions">
+          <a href="#shelf" className="btn btn-primary">Browse notebooks <ArrowIcon size={16} /></a>
+          <button type="button" className="btn btn-ghost" onClick={onSearch}>
+            <SearchIcon size={16} /> Search notes <kbd>/</kbd>
+          </button>
+        </div>
 
       </section>
 
@@ -34,13 +40,12 @@ function LandingPage() {
           <span className="continue-title">{lastRead.chapter.title}</span>
           <span className="continue-meta">
             {lastRead.subject.title}
-            {lastRead.subject.isSeries && ` · Chapter ${lastRead.chapter.number}`}
             <ArrowIcon size={16} />
           </span>
         </Link>
       )}
 
-      <section className="shelf-section" aria-labelledby="shelf-title">
+      <section className="shelf-section" id="shelf" aria-labelledby="shelf-title">
         <div className="section-head">
           <h2 id="shelf-title">The shelf</h2>
           <span className="hand annotation">pick a notebook ↓</span>

@@ -82,6 +82,20 @@ export function NotePage({ subject, chapter }) {
     markVisited(chapter.path);
   }, [chapter.path]);
 
+  // Phone drawer: Escape closes it
+  useEffect(() => {
+    if (!tocOpen) {
+      return undefined;
+    }
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setTocOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [tocOpen]);
+
   // Keep the highlighted contents entry visible inside the sidebar
   useEffect(() => {
     const toc = tocRef.current;
@@ -97,7 +111,9 @@ export function NotePage({ subject, chapter }) {
         <span style={{ transform: `scaleX(${progress})` }} />
       </div>
 
-      <aside className={`reader-aside${tocOpen ? ' is-open' : ''}`} aria-label="Chapter contents">
+      {tocOpen && <button type="button" className="toc-scrim" aria-label="Close contents" onClick={() => setTocOpen(false)} />}
+
+      <aside id="chapter-contents" className={`reader-aside${tocOpen ? ' is-open' : ''}`} aria-label="Chapter contents">
         <div className="aside-head">
           <Link to={subject.path} className="aside-subject">{subject.title}</Link>
         </div>
@@ -162,7 +178,7 @@ export function NotePage({ subject, chapter }) {
       </article>
 
       {chapter.headings.length > 0 && (
-        <button type="button" className="toc-fab" onClick={() => setTocOpen((open) => !open)} aria-expanded={tocOpen}>
+        <button type="button" className="toc-fab" onClick={() => setTocOpen((open) => !open)} aria-expanded={tocOpen} aria-controls="chapter-contents">
           <ListIcon size={16} /> {tocOpen ? 'Close' : 'Contents'} · {Math.round(progress * 100)}%
         </button>
       )}

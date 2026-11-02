@@ -20,6 +20,8 @@ export function useTheme() {
 export function toggleTheme() {
   const next = currentTheme() === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = next;
+  // Mobile browser chrome (address bar) follows the theme
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'dark' ? '#101c27' : '#f5f8f6');
   try {
     localStorage.setItem(STORAGE_KEY, next);
   } catch {

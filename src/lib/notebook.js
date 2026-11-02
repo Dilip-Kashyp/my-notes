@@ -1,7 +1,8 @@
 import { allNotes } from '../notes';
 
 // Cover colours for subjects that don't set `color` in their metadata.js
-const COVER_COLORS = ['#2f6f5e', '#6b4f9e', '#2f5d8a', '#b5452f', '#a0702a', '#3d6b8c'];
+// Muted cloth-bound tones that sit with the sage/teal theme; all keep white text at 4.5:1 or better
+const COVER_COLORS = ['#3f5a7a', '#6b4e71', '#5b6b3a', '#2f6b66', '#9a5a3c', '#2d4a5e'];
 const WORDS_PER_MINUTE = 220;
 
 export function generateId(text) {
@@ -164,7 +165,7 @@ export function findByPath(path) {
 
 export const searchIndex = subjects.flatMap((subject) =>
   subject.chapters.flatMap((chapter) => {
-    const where = subject.isSeries ? `${subject.title} · Chapter ${pad(chapter.number)}` : subject.title;
+    const where = subject.title;
     return [
       { kind: 'chapter', title: chapter.title, context: where, path: chapter.path, color: subject.color },
       ...chapter.headings.map((heading) => ({

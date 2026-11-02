@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useSearchParams } from 'react-router-dom';
 import { LandingPage, NotesRoute, NotFoundPage } from "./pages";
 import { TopBar } from './components/TopBar';
 import { SearchPalette } from './components/SearchPalette';
@@ -20,7 +20,20 @@ function useScrollOnNavigate() {
 
 function App() {
   const [searchOpen, setSearchOpen] = useState(false);
+  // "/?q=caching" opens search pre-filled (matches the SearchAction in index.html)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlQuery = searchParams.get('q');
   useScrollOnNavigate();
+
+  function closeSearch() {
+    setSearchOpen(false);
+    if (urlQuery !== null) {
+      setSearchParams((params) => {
+        params.delete('q');
+        return params;
+      }, { replace: true });
+    }
+  }
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -39,10 +52,11 @@ function App() {
 
   return (
     <>
+      <a className="skip-link" href="#main">Skip to content</a>
       <TopBar onSearch={() => setSearchOpen(true)} />
-      <main className="app-main">
+      <main className="app-main" id="main" tabIndex={-1}>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage onSearch={() => setSearchOpen(true)} />} />
           <Route path="/notes/:topic" element={<NotesRoute />} />
           <Route path="/notes/:topic/:chapter" element={<NotesRoute />} />
           <Route path="*" element={<NotFoundPage />} />
@@ -51,7 +65,7 @@ function App() {
       <footer className="site-footer">
         <span>Spotted a mistake? Pull requests are welcome.</span>
       </footer>
-      {searchOpen && <SearchPalette onClose={() => setSearchOpen(false)} />}
+      {(searchOpen || urlQuery !== null) && <SearchPalette initialQuery={urlQuery ?? ''} onClose={closeSearch} />}
     </>
   );
 }

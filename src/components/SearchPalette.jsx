@@ -22,9 +22,9 @@ function search(query) {
   return scored.sort((a, b) => a.score - b.score).slice(0, MAX_RESULTS).map(({ item }) => item);
 }
 
-export function SearchPalette({ onClose }) {
+export function SearchPalette({ initialQuery = '', onClose }) {
   const navigate = useNavigate();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(initialQuery);
   const [activeIndex, setActiveIndex] = useState(0);
   const listRef = useRef(null);
   const results = search(query);
